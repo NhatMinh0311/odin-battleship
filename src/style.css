@@ -1,0 +1,144 @@
+body {
+    background-image: url(./images/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    font-size: 2rem;
+}
+
+#pop-up-sec {
+    position: absolute;
+    height: 400px;
+    width: 600px;
+    background-color: rgb(53, 143, 218);
+    top: calc((100vh - 400px) / 2);
+    left: calc((100vw - 600px) / 2);
+    border: 3px solid black;
+    border-radius: 16px;
+    display: none;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    
+}
+
+.mode-btn {
+    font-size: inherit;
+    border-width: 0;
+    border-radius: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: gray;
+}
+#logo-container {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#instruction-sec {
+    position: absolute;
+    top: 0;
+    > button {
+        height: 30px;
+        > svg {
+            height: 100%;
+        }
+    }
+    > div {
+        position: absolute;
+        display: none;
+        width: 350px;
+        padding: 12px;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        z-index: 2;
+        > h4 {
+            margin: 10px;
+        }
+    }
+}
+
+#monitor {
+    width: 600px;
+    background-color: rgb(1, 117, 59);
+    border-radius: 12px;
+    position: relative;
+    font-size: 2em;
+    padding: 10px;
+    text-align: center;
+    left: calc((100vw - 600px) / 2);
+    z-index: 1;
+}
+#main-sec {
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.player-name {
+    margin: 20px;
+    text-align: center;
+}
+.gameboard-container {
+    height: 400px;
+    width: 400px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+#button-sec {
+    > button {
+        font-size: 32px;
+        color: wheat;
+        background-color: blue;
+        border-width: 0;
+        border-radius: 8px;
+        width: 200px;
+    }
+
+    > button:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+.spot {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.ship-container {
+    background-color: aquamarine;
+}
+
+.miss {
+    background-color: rgb(211, 204, 204);
+}
+
+.miss::after {
+    content: "O";
+    color: white;
+}
+
+.hit {
+    border-color: red;
+    border-width: 2px;
+}
+
+.hit::after {
+    content: "X";
+    color: red;
+}
+
+.sunk-ship {
+    background-color: red;
+}
