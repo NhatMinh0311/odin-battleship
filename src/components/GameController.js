@@ -1,5 +1,5 @@
 import { Player, Computer } from "./class";
-import { renderChooseModeBtn, renderGameboard, getTargetCoordinates, hidePopUpSec, printTurn, printWinner } from "./manageDOM";
+import { renderChooseModeBtn, renderGameboard, getTargetCoordinates, hidePopUpSec, printTurn, printWinner, printNameOfPlayers } from "./manageDOM";
 
 const roles = {
     "attacker": null,
@@ -107,6 +107,7 @@ async function onePlayerGame() {
     const playerTwo = new Computer("Computer", "board-2");
     roles.attacker = playerOne;
     roles.defender = playerTwo;
+    printNameOfPlayers(playerOne, playerTwo);
     playerOne.ownGameboard.randomlyPlaceShip();
     playerTwo.ownGameboard.randomlyPlaceShip();
     renderGameboard(playerOne.ownGameboard, "board-1", "visibleShip");
@@ -131,13 +132,36 @@ async function onePlayerGame() {
     printWinner(winner.name);
 }
 
-function twoPlayerGame() {
-    // const playerOne = new Player();
-    // const playerTwo = new Player();
-    // roles.attacker = playerOne;
-    // roles.defender = playerTwo;
-    alert("It will be release soon :)))");
-    setTimeout(() => location.reload(), 3000);
+async function twoPlayerGame() {
+    const playerOne = new Player("Player 1", "board-1");
+    const playerTwo = new Player("Player 2", "board-2");
+    roles.attacker = playerOne;
+    roles.defender = playerTwo;
+    printNameOfPlayers(playerOne, playerTwo);
+    playerOne.ownGameboard.randomlyPlaceShip();
+    renderGameboard(playerOne.ownGameboard, "board-1", "visibleShip");
+    await placeShipPhase(playerOne);
+    renderGameboard(playerOne.ownGameboard, "board-1", "noVisibleShip");
+
+    playerTwo.ownGameboard.randomlyPlaceShip();
+    renderGameboard(playerTwo.ownGameboard, "board-2", "visibleShip");
+    await placeShipPhase(playerTwo);
+    renderGameboard(playerTwo.ownGameboard, "board-2", "noVisibleShip");
+
+    while (!playerOne.ownGameboard.allShipIsSunk() && !playerTwo.ownGameboard.allShipIsSunk()) {
+        const attacker = roles.attacker;
+        const defender = roles.defender;
+        printTurn(attacker.name);
+        const targetCoordinatesString = await getTargetCoordinates(defender.boardContainerId);
+        if (!targetCoordinatesString) return;
+        const targetCoordinates = JSON.parse(targetCoordinatesString);
+        implementAttack(defender, targetCoordinates);
+        renderGameboard(defender.ownGameboard, defender.boardContainerId, "noVisibleShip");
+    }
+    const winner = (playerOne.ownGameboard.allShipIsSunk()) ? playerTwo : playerOne;
+    printWinner(winner.name);
+    // alert("It will be release soon :)))");
+    // setTimeout(() => location.reload(), 3000);
 }
 
 export {

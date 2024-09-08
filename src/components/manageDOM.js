@@ -86,6 +86,13 @@ function printWinner(name) {
     const monitor = document.querySelector("#monitor");
     monitor.textContent = `${name.toUpperCase()} WON!`;
 }
+
+function printNameOfPlayers(playerOne, playerTwo) {
+    const nameSecOne = document.querySelector(`#${playerOne.boardContainerId}`).previousElementSibling;
+    nameSecOne.textContent = playerOne.name;
+    const nameSecTwo = document.querySelector(`#${playerTwo.boardContainerId}`).previousElementSibling;
+    nameSecTwo.textContent = playerTwo.name;
+}
 export {
     initBtns,
     renderGameboard, 
@@ -93,5 +100,6 @@ export {
     renderChooseModeBtn,
     hidePopUpSec,
     printTurn,
-    printWinner
+    printWinner,
+    printNameOfPlayers
 }
